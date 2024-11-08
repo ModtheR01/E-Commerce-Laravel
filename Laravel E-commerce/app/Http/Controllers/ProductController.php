@@ -21,7 +21,10 @@ class ProductController extends Controller
     }
 
     public function addcart($id){
-        $products = \App\Models\Products::find($id);
+        if(auth()->user()){
+            $products = \App\Models\Products::find($id);
             return view('front.pages.cart', compact('products'));
+        }
+        return redirect()->route('login');
     }
 }
