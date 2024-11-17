@@ -11,7 +11,8 @@ class ProductController extends Controller
     public function shop()
     {
         $products = \App\Models\Products::all();
-        return view('front.pages.shop', compact('products'));
+        $categories = \App\Models\Category::all();
+        return view('front.pages.shop', compact('products','categories'));
     }
 
     public function singleProduct($id)
@@ -20,11 +21,11 @@ class ProductController extends Controller
         return view('front.pages.shop-single', compact('product'));
     }
 
-    public function addcart($id){
-        if(auth()->user()){
-            $products = \App\Models\Products::find($id);
-            return view('front.pages.cart', compact('products'));
-        }
-        return redirect()->route('login');
-    }
+    // public function addcart($id){
+    //     if(auth()->user()){
+    //         $products = \App\Models\Products::find($id);
+    //         return view('front.pages.cart', compact('products'));
+    //     }
+    //     // return redirect()->route('login');
+    // }
 }

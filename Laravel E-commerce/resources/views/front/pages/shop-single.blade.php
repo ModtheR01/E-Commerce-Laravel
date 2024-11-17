@@ -21,7 +21,7 @@
             <div class="col-md-6">
                 <h2 class="text-black">{{ $product->title }}</h2>
                 <p class="mb-4">{{ $product->description }}</p>
-                <p><strong class="text-primary h4">${{ $product->price }}</strong></p>
+                <p><strong class="text-primary h4">{{ $product->price }} EGP</strong></p>
                 <div class="mb-1 d-flex">
                 <label for="option-sm" class="d-flex mr-3 mb-3">
                     <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
@@ -36,7 +36,7 @@
                     <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>
                 </label>
                 </div>
-                <div class="mb-5">
+                {{-- <div class="mb-5">
                 <div class="input-group mb-3" style="max-width: 120px;">
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
@@ -45,16 +45,29 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                 </div>
+                </div> --}}
+                @if ($product->available_quantity > 0)
+                    <div class="mb-5">
+                        <div class="input-group mb-3" style="max-width: 120px;">
+                            <div class="input-group-prepend">
+                                <form action="{{ route('front.cart.add',$product->id)}}" method="POST">
+                                    @csrf
+                                    <input type="number" name="quantity" value="1" min="1" max="{{ $product->available_quantity }}">
+                                    <button type="submit">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="alert alert-danger" role="alert">
+                        This Product is Out Of Stock
+                    </div>
+                @endif
                 </div>
-
-                </div>
-                <p><a href="{{ route('front.addcart',$product->id) }}" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
-
             </div>
             </div>
         </div>
         </div>
-
         <div class="site-section block-3 site-blocks-2 bg-light">
         <div class="container">
             <div class="row justify-content-center">

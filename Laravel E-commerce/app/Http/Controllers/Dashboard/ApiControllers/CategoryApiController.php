@@ -1,29 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\StoreCategoryRequest;
 use App\Models\Category;
+use GuzzleHttp\Promise\Create;
 
-class CategoriesController extends Controller
+class CategoryApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories=Category::orderBy('id','asc')->simplePaginate(5);
-        return view('admin.categories.index',compact('categories'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view("admin.categories.create");
+        $categories = Category::orderBy('id', 'asc')->simplePaginate(5);
+        if($categories->count()<1){
+            return response()->json(
+                ['message' => 'No Categories Found'], 404
+            );
+        }else{
+            return response()->json([
+                'message' => 'Categories Found',
+                'data' => $categories,
+            ]);
+        }
     }
 
     /**s
@@ -31,10 +33,19 @@ class CategoriesController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $data = $request->validated();
-        $data['create_user_id'] = auth()->user()->id;
-        Category::create($data);
-        return to_route('dashboard.categories.index')->with('Category_Created_Sucessfully',"The Category has been Created Sucessfully");
+        try{
+                $validatedData = $request->validated();
+                $category = Category::create($validatedData);
+                return response()->json([
+                    'message' => 'Category Created Successfully',
+                    'data' => $category
+                ], 201);
+        }catch (\Illuminate\Validation\ValidationException $e){
+            return response()->json([
+                'message' => 'Failed',
+                'errors' => $e->errors()
+            ], 422);
+        }
     }
 
     /**
@@ -42,20 +53,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-
         $category = Category::findOrFail($id);
-
         return view('admin.categories.show', compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $category = Category::findOrFail($id);
-
-        return view('admin.categories.edit', compact('category'));
     }
 
     // app/Http/Controllers/Dashboard/CategoriesController.php
@@ -97,15 +96,14 @@ class CategoriesController extends Controller
 
     public function restore($id)
     {
-        if(auth()->user()->user_type == 'admin'){
+        if (auth()->user()->user_type == 'admin') {
             $category = Category::withTrashed()->find($id);
             $category->restore();
             $category->update_user_id = auth()->user()->id;
             $category->save();
             return redirect()->route('dashboard.categories.index')->with('Restored', "The Category ($category->title) has been Restored Successfully");
         }
-        return abort(403,'You Are No Authrize ');
-
+        return abort(403, 'You Are No Authrize ');
     }
     public function forceDelete($id)
     {

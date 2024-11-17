@@ -27,4 +27,9 @@ class Category extends Model
     {
         return $this->hasMany(SubCategories::class);
     }
+
+    public function product(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Products::class);
+    }
 }

@@ -4,13 +4,17 @@ use App\Http\Controllers\Dashboard\CategoriesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CartController;
 use  App\Http\Controllers\HomeController;
 
 // Dashboard Conrtoller
 use App\Http\Controllers\Dashboard\DashboardMainController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\SubCategoriesController;
+//
 use App\Http\Controllers\ProductController;
+
+
 
 // Website Conrtoller
 //use App\Http\Controllers\Website\HomeController;
@@ -41,11 +45,15 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
             Route::get('/', 'index')->name('index');
             Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
             Route::get('/single_shop/{id}', [ProductController::class, 'singleProduct'])->name('single_shop');
+            Route::get('/single_category/{id}', [ProductController::class, 'singleCategory'])->name('single_category');
             Route::get('/contact', 'contact')->name('contact');
             Route::get('/cart', 'cart')->name('cart');
-            Route::get('/addcart/{id}', [ProductController::class, 'addcart'])->name('addcart');
             Route::get('/about', 'about')->name('about');
             Route::get('/checkout', 'checkout')->name('checkout');
+            Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+            Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+            Route::delete('/cart/{cid}/product/{pid}/remove', [CartController::class, 'remove'])->name('remove');
+
         });
 
         //Dashboard Routing

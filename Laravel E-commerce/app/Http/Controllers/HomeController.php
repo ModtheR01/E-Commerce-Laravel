@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 //use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -38,7 +39,7 @@ class HomeController extends Controller
         return view('front.pages.checkout');
     }
 
-    public function shop(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function shop()
     {
         return view('front.pages.shop');
     }
@@ -50,4 +51,17 @@ class HomeController extends Controller
     public function single_shop(){
         return view('front.pages.shop-single');
     }
+    // public function addToCart(Request $request, string $id)
+    // {
+    //     //
+
+    //     $product = \App\Models\Products::find($id);
+    //     $cartitem = new \App\Models\Cartitems();
+    //     $cartitem->product_id = $product->id;
+    //     $cartitem->user_id = auth()->user()->id;
+    //     $cartitem->quantity = $request->quantity;
+    //     $cartitem->save();
+
+    //     return view('front.pages.cart');
+    // }
 }

@@ -24,4 +24,14 @@ class Products extends Model
     {
         return $this->belongsTo(SubCategories::class);
     }
+
+    public function cart(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->BelongsTo(Category::class);
+    }
 }

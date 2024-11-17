@@ -69,7 +69,7 @@
                                     @if (auth()->user()->user_type == 'customer')
                                     <li><a href="#"><span class="icon icon-heart-o text-info"></span></a></li>
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('front.cart.show') }}">
                                             <i class="fa-solid fa-cart-shopping text-info"></i>
                                             {{-- <span class="count">0</span> --}}
                                         </a>

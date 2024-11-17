@@ -29,28 +29,36 @@
                             </tr>
                             </thead>
                             <tbody>
+                                @foreach ($cartItems as $item)
                                     <tr>
                                         <td class="product-thumbnail">
                                             <img src="{{asset('assets-front')}}/images/cloth_1.jpg" alt="Image" class="img-fluid">
                                         </td>
                                         <td class="product-name">
-                                            <h2 class="h5 text-black">{{ $products->title }}</h2>
+                                            <a href="{{ route('front.single_shop',$item->product_id) }}"class="h5 link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                                {{ $item->product_title}}
+                                            </a>
                                         </td>
-                                        <td>EGP{{ $products->price }}</td>
                                         <td>
-                                            <div class="input-group mb-3" style="max-width: 120px;">
-                                                <div class="input-group-prepend">
-                                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                                                </div>
-                                                <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                                                </div>
-                                            </div>
+                                            {{ $item->product_price }} EGP
                                         </td>
-                                        <td>$49.00</td>
-                                        <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                                        <td>
+                                            <span>{{ $item->quantity }}</span>
+                                        </td>
+                                        <td>
+                                            {{ ($item->total_price) }} EGP
+                                        </td>
+                                        <td>
+                                            {{-- <a href="{{ route('front.remove',$item->product_id) }}" class="btn btn-primary btn-sm">X</a> --}}
+                                            <form action="{{ route('front.remove', ['cid' => $item->id, 'pid' => $item->product_id]) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            </form>
+
+                                        </td>
                                     </tr>
+                                @endforeach
                                     {{-- <p>There Are No Products Added To Cart</p> --}}
 
 
@@ -95,9 +103,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="row mb-5">
-                        <div class="col-md-6 mb-3 mb-md-0">
+                        {{-- <div class="col-md-6 mb-3 mb-md-0">
                             <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6">
                             <a  href="{{ route('front.shop') }}" class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</a>
                         </div>
@@ -128,7 +136,7 @@
                                     <span class="text-black">Subtotal</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
+                                    <strong class="text-black">{{ $totalPrice }} EGP</strong>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -136,7 +144,7 @@
                                     <span class="text-black">Total</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
+                                    <strong class="text-black">{{ $totalPrice }} EGP</strong>
                                 </div>
                             </div>
 

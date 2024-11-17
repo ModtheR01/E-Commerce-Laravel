@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequst extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class StoreCategoryRequst extends FormRequest
         return [
             'title' => ['required','string','min:3'],
             'description' => ['required','string','min:5'],
-            // 'create_user_id' => ['required','exsits:users,id'],
         ];
     }
 }
