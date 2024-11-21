@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes as EloquentSoftDeletes;
 
-class SubCategories extends Model
+class SubCategory extends Model
 {
     use HasFactory , EloquentSoftDeletes;
     protected $guarded=[];

@@ -1,5 +1,5 @@
     @extends("admin.layouts.master")
-    @inject('Products', 'App\Models\Products')
+    @inject('Products', 'App\Models\Product')
     @section("page_header","Products")
     @section("page_name")
     @parent

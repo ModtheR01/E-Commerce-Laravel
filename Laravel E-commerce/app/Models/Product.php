@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes as EloquentSoftDeletes;
-class Products extends Model
+class Product extends Model
 {
     use HasFactory, EloquentSoftDeletes ;
     protected $guarded = [];
@@ -22,16 +22,11 @@ class Products extends Model
 
     public function subCategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(SubCategories::class);
+        return $this->belongsTo(SubCategory::class);
     }
 
-    public function cart(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function carts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Cart::class);
-    }
-
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->BelongsTo(Category::class);
     }
 }

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Product;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        $products = Products::all();
+        $products = Product::all();
         return view('admin.products.index', compact('products'));
     }
 
@@ -24,7 +24,7 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $subcategories = \App\Models\SubCategories::all();
+        $subcategories = \App\Models\subCategory::all();
         return view('admin.products.create', compact('subcategories'));
     }
 
@@ -63,7 +63,7 @@ class ProductsController extends Controller
     public function show(string $id)
     {
         //
-        $product = Products::find($id);
+        $product = Product::find($id);
         return view('admin.products.show', compact('product'));
     }
 
@@ -73,7 +73,7 @@ class ProductsController extends Controller
     public function edit(string $id)
     {
         //
-        $product = Products::find($id);
+        $product = Product::find($id);
         if (auth()->user()->user_type == 'admin'){
             return view('admin.products.edit', compact('product'));
         }
@@ -93,7 +93,7 @@ class ProductsController extends Controller
             'available_quantity'    => 'required|numeric|max:1020',
             'update_user_id'        => 'nullable,exists:users,id',
         ]);
-        $product = Products::find($id);
+        $product = Product::find($id);
         $product->title=$request->title;
         $product->description=$request->description;
         $product->price=$request->price;
@@ -109,26 +109,26 @@ class ProductsController extends Controller
     public function destroy(string $id)
     {
         //
-        $product = Products::find($id);
+        $product = Product::find($id);
         $product->delete();
         $product->save();
         return redirect()->route('dashboard.products.delete');
     }
 
     public function delete(){
-        $products = Products::orderby('id', 'desc')->onlyTrashed()->simplePaginate(10);
+        $products = Product::orderby('id', 'desc')->onlyTrashed()->simplePaginate(10);
         $product_counts = $products->count();
         return view('admin.products.delete', compact('products', 'product_counts'));
     }
 
     public function restore($id){
-        $product = Products::withTrashed()->where('id', $id)->find($id);
+        $product = Product::withTrashed()->where('id', $id)->find($id);
         $product->restore();
         return redirect()->route('dashboard.products.index');
     }
 
     public function forceDelete($id){
-        $product = Products::where('id', $id);
+        $product = Product::where('id', $id);
         $product->forceDelete();
         return redirect()->route('dashboard.products.delete');
     }

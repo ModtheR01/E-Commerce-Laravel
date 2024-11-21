@@ -1,19 +1,18 @@
 <?php
 
-use App\Http\Controllers\Dashboard\CategoriesController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CartController;
-use  App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController as WebsiteProduct;
+
 
 // Dashboard Conrtoller
 use App\Http\Controllers\Dashboard\DashboardMainController;
-use App\Http\Controllers\Dashboard\ProductsController;
-use App\Http\Controllers\Dashboard\SubCategoriesController;
-//
-use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\Dashboard\ProductController as DashboardProduct;
+use App\Http\Controllers\Dashboard\SubCategoryController;
 
 
 // Website Conrtoller
@@ -43,9 +42,9 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
         Route::controller(HomeController::class)->name('front.')->group(function () {
             Route::get('/home', 'index')->name('home');
             Route::get('/', 'index')->name('index');
-            Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
-            Route::get('/single_shop/{id}', [ProductController::class, 'singleProduct'])->name('single_shop');
-            Route::get('/single_category/{id}', [ProductController::class, 'singleCategory'])->name('single_category');
+            Route::get('/shop', [WebsiteProduct::class, 'shop'])->name('shop');
+            Route::get('/single_shop/{id}', [WebsiteProduct::class, 'singleProduct'])->name('single_shop');
+            Route::get('/single_category/{id}', [WebsiteProduct::class, 'singleCategory'])->name('single_category');
             Route::get('/contact', 'contact')->name('contact');
             Route::get('/cart', 'cart')->name('cart');
             Route::get('/about', 'about')->name('about');
@@ -82,16 +81,16 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
                 Route::get('/sub-categories/restore/{id}', [SubCategoriesController::class, 'restore'])->name('sub-categories.restore');
                 Route::delete('/sub-categories/forceDelete/{id}', [SubCategoriesController::class, 'forceDelete'])->name('sub-categories.forceDelete');
                 // Products Routes
-                Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
-                Route::get('/products/create', [ProductsController::class, 'create'])->name('products.create');
-                Route::post('/products', [ProductsController::class, 'store'])->name('products.store');
-                Route::get('/products/show/{id}', [ProductsController::class, 'show'])->name('products.show');
-                Route::get('/products/edit/{id}', [ProductsController::class, 'edit'])->name('products.edit');
-                Route::put('/products/update/{id}', [ProductsController::class, 'update'])->name('products.update');
-                Route::get('/products/delete', [ProductsController::class, 'delete'])->name('products.delete');
-                Route::delete('/destroy/{id}', [ProductsController::class, 'destroy'])->name('products.destroy');
-                Route::get('/products/restore/{id}', [ProductsController::class, 'restore'])->name('products.restore');
-                Route::delete('/products/forceDelete/{id}', [ProductsController::class, 'forceDelete'])->name('products.forceDelete');
+                Route::get('/products', [DashboardProduct::class, 'index'])->name('products.index');
+                Route::get('/products/create', [DashboardProduct::class, 'create'])->name('products.create');
+                Route::post('/products', [DashboardProduct::class, 'store'])->name('products.store');
+                Route::get('/products/show/{id}', [DashboardProduct::class, 'show'])->name('products.show');
+                Route::get('/products/edit/{id}', [DashboardProduct::class, 'edit'])->name('products.edit');
+                Route::put('/products/update/{id}', [DashboardProduct::class, 'update'])->name('products.update');
+                Route::get('/products/delete', [DashboardProduct::class, 'delete'])->name('products.delete');
+                Route::delete('/destroy/{id}', [DashboardProduct::class, 'destroy'])->name('products.destroy');
+                Route::get('/products/restore/{id}', [DashboardProduct::class, 'restore'])->name('products.restore');
+                Route::delete('/products/forceDelete/{id}', [DashboardProduct::class, 'forceDelete'])->name('products.forceDelete');
 
             });
         });

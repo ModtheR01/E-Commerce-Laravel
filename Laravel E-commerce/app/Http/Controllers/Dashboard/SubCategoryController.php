@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\SubCategories;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
-class SubCategoriesController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class SubCategoriesController extends Controller
     public function index()
     {
         //
-        $SubCategories= SubCategories::all();
-        return view('admin.sub-categories.index', compact('SubCategories'));
+        $subCategories= SubCategory::all();
+        return view('admin.sub-categories.index', compact('subCategories'));
     }
 
     /**
@@ -41,7 +41,7 @@ class SubCategoriesController extends Controller
             'create_user_id'=>'nullable|exists:users,id',
             'update_user_id'=>'nullable|exists:users,id',
         ]);
-        $subcategories= new SubCategories();
+        $subcategories= new SubCategory();
         $subcategories->title=$request->title;
         $subcategories->description=$request->description;
         $subcategories->category_id=$request->category_id;
@@ -59,7 +59,7 @@ class SubCategoriesController extends Controller
     public function show(string $id)
     {
         //
-        $subcategory= SubCategories::find($id);
+        $subcategory= SubCategory::find($id);
         return view('admin.sub-categories.show', compact('subcategory'));
     }
 
@@ -69,7 +69,7 @@ class SubCategoriesController extends Controller
     public function edit(string $id)
     {
         //
-        $subcategory = SubCategories::find($id);
+        $subcategory = SubCategory::find($id);
         if($subcategory==null){
             return view('admin.sub-categories.404.cat-404');
         }else{
@@ -94,8 +94,8 @@ class SubCategoriesController extends Controller
             'create_user_id' => 'nullable|exists:users,id',
             'update_user_id' => 'nullable|exists:users,id',
         ]);
-        $subcategory_old = SubCategories::find($id);
-        $subcategory = SubCategories::find($id);
+        $subcategory_old = SubCategory::find($id);
+        $subcategory = SubCategory::find($id);
         $subcategory->title = $request->title;
         // if($subcategory->title == $request->title){
         //     $subcategory->title= $subcategory->title;
@@ -111,7 +111,7 @@ class SubCategoriesController extends Controller
     }
 
     public function delete(){
-        $subcategories= SubCategories::orderby('id', 'desc')->onlyTrashed()->simplePaginate(10);
+        $subcategories= SubCategory::orderby('id', 'desc')->onlyTrashed()->simplePaginate(10);
         $subcategories_count= $subcategories->count();
         return view('admin.sub-categories.delete', compact('subcategories','subcategories_count'));
     }
@@ -122,14 +122,14 @@ class SubCategoriesController extends Controller
     public function destroy(string $id)
     {
         //
-        $subcategories = SubCategories::find($id);
+        $subcategories = SubCategory::find($id);
         $subcategories->delete();
         $subcategories->save();
         return redirect()->route('dashboard.sub-categories.delete');
     }
 
     public function restore($id){
-        $subcategory= SubCategories::withTrashed()->find($id);
+        $subcategory= SubCategory::withTrashed()->find($id);
         $subcategory->restore();
         $subcategory->update_user_id=auth()->user()->id;
         $subcategory->save();
@@ -137,7 +137,7 @@ class SubCategoriesController extends Controller
     }
 
     public function forceDelete($id){
-        $subcategory= SubCategories::where('id', $id);
+        $subcategory= SubCategory::where('id', $id);
         $subcategory->forceDelete();
         return redirect()->route('dashboard.sub-categories.delete')->with('ForceDeleted',"The Sub-Category has been Deleted Sucessfully");
     }

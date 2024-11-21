@@ -1,5 +1,5 @@
     @extends("admin.layouts.master")
-    @inject('SubCategories', 'App\Models\SubCategories')
+    @inject('SubCategories', 'App\Models\subCategory')
     @section("page_header","Sub-Categories")
     @section("page_name")
     @parent
