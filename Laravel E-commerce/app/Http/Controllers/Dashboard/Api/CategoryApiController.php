@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\ApiControllers;
+namespace App\Http\Controllers\Dashboard\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -57,7 +57,7 @@ class CategoryApiController extends Controller
         return view('admin.categories.show', compact('category'));
     }
 
-    // app/Http/Controllers/Dashboard/CategoriesController.php
+    // app/Http/Controllers/Dashboard/CategoryController.php
 
     public function update(Request $request, $id)
     {

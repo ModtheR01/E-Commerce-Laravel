@@ -59,27 +59,27 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
         Route::group(['middleware' => ['auth', 'dashboard']], function () {
             Route::prefix('dashboard')->name('dashboard.')->group(function () {
                 Route::get('/', [DashboardMainController::class, 'index'])->name('home');
-                Route::get('categories/create', [CategoriesController::class, 'create'])->name('categories.create');
-                Route::post('/categories', [CategoriesController::class, 'store'])->name('categories.store');
-                Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
-                Route::get('/categories/{category}', [CategoriesController::class, 'show'])->name('categories.show');
-                Route::get('categories/{category}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
-                Route::put('categories/{category}', [CategoriesController::class, 'update'])->name('categories.update');
-                Route::delete('categories/{category}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
-                Route::get('category/delete', [CategoriesController::class, 'delete'])->name('categories.delete');
-                Route::get('category/restore/{id}', [CategoriesController::class, 'restore'])->name('categories.restore');
-                Route::delete('category/forceDelete/{id}', [CategoriesController::class, 'forceDelete'])->name('categories.forceDelete');
+                Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
+                Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+                Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+                Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+                Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+                Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+                Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+                Route::get('category/delete', [CategoryController::class, 'delete'])->name('categories.delete');
+                Route::get('category/restore/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
+                Route::delete('category/forceDelete/{id}', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
                 // Sub-Categories Routes
-                Route::get('/sub-categories', [SubCategoriesController::class, 'index'])->name('sub-categories.index');
-                Route::get('sub-categories/create', [SubCategoriesController::class, 'create'])->name('sub-categories.create');
-                Route::post('/sub-categories', [SubCategoriesController::class, 'store'])->name('sub-categories.store');
-                Route::get('sub-categories/{id}/show', [SubCategoriesController::class, 'show'])->name('sub-categories.show');
-                Route::get('sub-categories/{subcategory}/edit', [SubCategoriesController::class, 'edit'])->name('sub-categories.edit');
-                Route::put('sub-categories/{subcategory}', [SubCategoriesController::class, 'update'])->name('sub-categories.update');
-                Route::delete('sub-categories/{subcategory}/destroy', [SubCategoriesController::class, 'destroy'])->name('sub-categories.destroy');
-                Route::get('/sub-categories/delete', [SubCategoriesController::class, 'delete'])->name('sub-categories.delete');
-                Route::get('/sub-categories/restore/{id}', [SubCategoriesController::class, 'restore'])->name('sub-categories.restore');
-                Route::delete('/sub-categories/forceDelete/{id}', [SubCategoriesController::class, 'forceDelete'])->name('sub-categories.forceDelete');
+                Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('sub-categories.index');
+                Route::get('sub-categories/create', [SubCategoryController::class, 'create'])->name('sub-categories.create');
+                Route::post('/sub-categories', [SubCategoryController::class, 'store'])->name('sub-categories.store');
+                Route::get('sub-categories/{id}/show', [SubCategoryController::class, 'show'])->name('sub-categories.show');
+                Route::get('sub-categories/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('sub-categories.edit');
+                Route::put('sub-categories/{subcategory}', [SubCategoryController::class, 'update'])->name('sub-categories.update');
+                Route::delete('sub-categories/{subcategory}/destroy', [SubCategoryController::class, 'destroy'])->name('sub-categories.destroy');
+                Route::get('/sub-categories/delete', [SubCategoryController::class, 'delete'])->name('sub-categories.delete');
+                Route::get('/sub-categories/restore/{id}', [SubCategoryController::class, 'restore'])->name('sub-categories.restore');
+                Route::delete('/sub-categories/forceDelete/{id}', [SubCategoryController::class, 'forceDelete'])->name('sub-categories.forceDelete');
                 // Products Routes
                 Route::get('/products', [DashboardProduct::class, 'index'])->name('products.index');
                 Route::get('/products/create', [DashboardProduct::class, 'create'])->name('products.create');

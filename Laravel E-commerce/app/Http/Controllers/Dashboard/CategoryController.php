@@ -58,7 +58,7 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    // app/Http/Controllers/Dashboard/CategoriesController.php
+    // app/Http/Controllers/Dashboard/CategoryController.php
 
     public function update(Request $request, $id)
     {
