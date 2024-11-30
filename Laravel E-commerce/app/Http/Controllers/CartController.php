@@ -100,33 +100,28 @@ class CartController extends Controller
 
     public function showCart()
     {
-        // Get all cart items for the current user along with the associated product details
         $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
         $totalPrice = $cartItems->sum('total_price');
-        // Pass the cart items to the view
         return view('front.pages.cart', compact('cartItems','totalPrice'));
     }
 
-    // public function updateCart(Request $request, $productId){
-    //     $cartItem = Cart::where('product_id', $productId)
-    //         ->where('user_id', auth()->id())
-    //         ->first();
-    //     $newQuantity = $request->input('quantity');
-    //     $totalPrice = $cartItem->product->price * $newQuantity;
-    //     $cartItem->update(['quantity' => $newQuantity]);
-    //     $cartItem->update(['total_price' => $totalPrice]);
-    //     $product = Products::findOrFail($productId);
-    //     $product->available_quantity -= $newQuantity;
-    //     $product->save();
-    //     return redirect()->back()->with('success', 'Cart updated successfully!');
-    //     //return view('front.pages.cart', compact('product'));
-    // }
+    public function updateCart(Request $request, $productId){
+        $cartItem = Cart::where('product_id', $productId)
+            ->where('user_id', auth()->id())
+            ->first();
+        $product = Products::findOrFail($productId);
+        $newQuantity = $request->input('quantity');
+        if ($newQuantity <= $product->available_quantity)
+        {
+            $totalPrice = $cartItem->product->price * $newQuantity;
+            $cartItem->quantity = $newQuantity;
+            $cartItem->total_price = $totalPrice;
+            $product->available_quantity -= $newQuantity;
+        }
+        $product->save();
+        return redirect()->back()->with('success', 'Cart updated successfully!');
+    }
 
-    // public function singleProduct($id)
-    // {
-    //     $product = Products::findOrFail($id);
-    //     return view('front.pages.shop-single', compact('product'));
-    // }
     public function remove ($cid,$pid)
     {
         $cart = Cart::findOrFail($cid);

@@ -1,15 +1,13 @@
-    @extends('front.layout.mastar')
-    @section('title','Shop')
-    @section('shop-active','active')
+@extends('front.layout.mastar')
 
-    @section('content')
-    @include('front.partials.breadcrumb')
+@section('title','New_Arrival')
+@section('newarrivals-active','active')
+
+@section('content')
     <div class="site-section">
         <div class="container">
-
         <div class="row mb-5">
             <div class="col-md-9 order-2">
-
             <div class="row">
                 <div class="col-md-12 mb-5">
                 <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
@@ -19,11 +17,9 @@
                         Latest
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        @foreach ($categories as $category)
-                        <a class="dropdown-item" href="#">{{ $category->title }} ({{ $electronicsCount }})</a>
-                        @endforeach
-                        {{-- <a class="dropdown-item" href="#">Women</a>
-                        <a class="dropdown-item" href="#">Children</a> --}}
+                        <a class="dropdown-item" href="#">Men</a>
+                        <a class="dropdown-item" href="#">Women</a>
+                        <a class="dropdown-item" href="#">Children</a>
                     </div>
                     </div>
                     <div class="btn-group">
@@ -41,25 +37,22 @@
                 </div>
             </div>
             <div class="row mb-5">
-                @forelse ($products as $product)
+                @forelse ($newArrivals as $newArrival)
                     <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                         <div class="block-4 text-center border">
                             <figure class="block-4-image">
-                            <a href="{{ route('front.single_shop',$product->id) }}"><img src="{{asset('assets-front')}}/images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
+                            <a href="#"><img src="{{asset('assets-front')}}/images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
                             </figure>
                             <div class="block-4-text p-4">
-                            <h3><a href="{{ route('front.single_shop',$product->id) }}">{{ $product->title }}</a></h3>
-                            <p class="mb-0">{{ $product->subcategory->title }}</p>
-                            <p class="text-primary font-weight-bold">{{ $product->price }} EGP</p>
+                            <h3><a href="#">{{ $newArrival->title }}</a></h3>
+                            <p class="mb-0">{{ $newArrival->subcategory->title }}</p>
+                            <p class="text-primary font-weight-bold">{{ $newArrival->price }} EGP</p>
                             </div>
                         </div>
                     </div>
                 @empty
                     There Are No Products Available
                 @endforelse
-
-
-
             </div>
             <div class="row" data-aos="fade-up">
                 <div class="col-md-12 text-center">
@@ -77,24 +70,13 @@
                 </div>
             </div>
             </div>
-
             <div class="col-md-3 order-1 mb-5 mb-md-0">
-            <div class="border p-4 rounded mb-4">
-                <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories<span> ({{ $categoriesCount }})</span></h3>
-                <ul class="list-unstyled mb-0">
-                    @foreach ($categories as $category)
-                        <li class="mb-1"><a href="#" class="d-flex"><span>{{ $category->title }}</span></a></li>
-                    @endforeach
-                </ul>
-            </div>
-
             <div class="border p-4 rounded mb-4">
                 <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
                 <div id="slider-range" class="border-primary"></div>
                 <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
                 </div>
-
                 <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
                 <label for="s_sm" class="d-flex">
@@ -107,7 +89,6 @@
                     <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
                 </label>
                 </div>
-
                 <div class="mb-4">
                 <h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
                 <a href="#" class="d-flex color-item align-items-center" >
@@ -123,60 +104,9 @@
                     <span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Purple (1,075)</span>
                 </a>
                 </div>
-
             </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-            <div class="site-section site-blocks-2">
-                <div class="row justify-content-center text-center mb-5">
-                    <div class="col-md-7 site-section-heading pt-4">
-                    <h2>Categories</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
-                    <a class="block-2-item" href="#">
-                        <figure class="image">
-                        <img src="{{asset('assets-front')}}/images/women.jpg" alt="" class="img-fluid">
-                        </figure>
-                        <div class="text">
-                        <span class="text-uppercase">Collections</span>
-                        <h3>Women</h3>
-                        </div>
-                    </a>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
-                    <a class="block-2-item" href="#">
-                        <figure class="image">
-                        <img src="{{asset('assets-front')}}/images/children.jpg" alt="" class="img-fluid">
-                        </figure>
-                        <div class="text">
-                        <span class="text-uppercase">Collections</span>
-                        <h3>Children</h3>
-                        </div>
-                    </a>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
-                    <a class="block-2-item" href="#">
-                        <figure class="image">
-                        <img src="{{asset('assets-front')}}/images/men.jpg" alt="" class="img-fluid">
-                        </figure>
-                        <div class="text">
-                        <span class="text-uppercase">Collections</span>
-                        <h3>Men</h3>
-                        </div>
-                    </a>
-                    </div>
-                </div>
-
-            </div>
-            </div>
-        </div>
-
         </div>
     </div>
-    @include('front.partials.footer')
-    @endsection
+@endsection

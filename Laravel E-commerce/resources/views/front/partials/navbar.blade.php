@@ -115,7 +115,7 @@
                         </li>
                         <li class="@yield('shop-active')"><a href="{{ route('front.shop') }}">{{ __('website/nav.shop') }}</a></li>
                         <li class="@yield('catalogue-active')"><a href="#">{{ __('website/nav.catalogue') }}</a></li>
-                        <li class="@yield('newarrivals-active')"><a href="#">{{ __('website/nav.new_arrivales') }}</a></li>
+                        <li class="@yield('newarrivals-active')"><a href="{{ route('front.new_arrival') }}">{{ __('website/nav.new_arrivales') }}</a></li>
                         <li class="@yield('contact-active')"><a href="{{ route('front.contact') }}">{{ __('website/nav.contact') }}</a></li>
                     </ul>
                 </div>

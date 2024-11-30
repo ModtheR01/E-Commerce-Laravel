@@ -43,30 +43,29 @@
                                             {{ $item->product_price }} EGP
                                         </td>
                                         <td>
-                                            <span>{{ $item->quantity }}</span>
+                                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="{{ $item->product->available_quantity }}" >
                                         </td>
                                         <td>
                                             {{ ($item->total_price) }} EGP
                                         </td>
+                                        {{-- <td>
+                                            <form action="{{ route('front.cart.update',$item->product->id,$item->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-primary">Update Cart</button>
+                                            </form>
+                                        </td> --}}
                                         <td>
                                             {{-- <a href="{{ route('front.remove',$item->product_id) }}" class="btn btn-primary btn-sm">X</a> --}}
-                                            <form action="{{ route('front.remove', ['cid' => $item->id, 'pid' => $item->product_id]) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('front.cart.remove', ['cid' => $item->id, 'pid' => $item->product_id]) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                             </form>
-
                                         </td>
                                     </tr>
                                 @endforeach
                                     {{-- <p>There Are No Products Added To Cart</p> --}}
-
-
-
-
-
-
-
                             {{-- <tr>
                                 <td class="product-thumbnail">
                                     <img src="{{asset('assets-front')}}/images/cloth_2.jpg" alt="Image" class="img-fluid">
@@ -85,15 +84,10 @@
                                             <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                                         </div>
                                     </div>
-
                                 </td>
                                 <td>$49.00</td>
                                 <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
                             </tr> --}}
-
-
-
-
                             </tbody>
                         </table>
                     </div>
@@ -103,9 +97,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="row mb-5">
-                        {{-- <div class="col-md-6 mb-3 mb-md-0">
-                            <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
-                        </div> --}}
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            {{-- <form action="{{ route('front.cart.update',$cartItems->product->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
+                            </form> --}}
+                        </div>
                         <div class="col-md-6">
                             <a  href="{{ route('front.shop') }}" class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</a>
                         </div>

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 //use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\Products;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -51,17 +52,18 @@ class HomeController extends Controller
     public function single_shop(){
         return view('front.pages.shop-single');
     }
-    // public function addToCart(Request $request, string $id)
-    // {
-    //     //
 
-    //     $product = \App\Models\Products::find($id);
-    //     $cartitem = new \App\Models\Cartitems();
-    //     $cartitem->product_id = $product->id;
-    //     $cartitem->user_id = auth()->user()->id;
-    //     $cartitem->quantity = $request->quantity;
-    //     $cartitem->save();
+    public function new_arrival(){
+        $newArrivals=Products::where('created_at','>=',Carbon::now()->subDays(15))
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
+        return view('front.pages.new_arrival',compact('newArrivals'));
+    }
 
-    //     return view('front.pages.cart');
-    // }
+
+
+
+
+
+
 }

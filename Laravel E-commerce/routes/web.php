@@ -43,6 +43,7 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
         Route::controller(HomeController::class)->name('front.')->group(function () {
             Route::get('/home', 'index')->name('home');
             Route::get('/', 'index')->name('index');
+            Route::get('/new_arrival', [HomeController::class, 'new_arrival'])->name('new_arrival');
             Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
             Route::get('/single_shop/{id}', [ProductController::class, 'singleProduct'])->name('single_shop');
             Route::get('/single_category/{id}', [ProductController::class, 'singleCategory'])->name('single_category');
@@ -51,8 +52,9 @@ Route::middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewP
             Route::get('/about', 'about')->name('about');
             Route::get('/checkout', 'checkout')->name('checkout');
             Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+            Route::put('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update');
             Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
-            Route::delete('/cart/{cid}/product/{pid}/remove', [CartController::class, 'remove'])->name('remove');
+            Route::delete('/cart/{cid}/product/{pid}/remove', [CartController::class, 'remove'])->name('cart.remove');
 
         });
 
