@@ -15,30 +15,30 @@ class UserSeeder extends Seeder
     {
         //User Admin
         $user=User::create([
-            'name'        =>   'Admin',
-            'email'       =>   'admin@example.com',
-            'user_type'   =>   'admin',
-            'password'    =>   bcrypt('123456789'),
-            'created_at'  =>   Carbon::now()->toDateTimeString(),
-            'updated_at'  =>   null,
+            'name'        => 'Admin',
+            'email'       => 'admin@example.com',
+            'user_type'   => 'admin',
+            'password'    => bcrypt('123456789'),
+            'created_at'  => Carbon::now()->toDateTimeString(),
+            'updated_at'  => null,
         ]);
         //User Moderator
         $user = User::create([
-            'name'        =>   'Moderator',
-            'email'       =>   'moderator@example.com',
-            'user_type'   =>   'moderator',
-            'password'    =>   bcrypt('123456789'),
-            'created_at'  =>   Carbon::now()->toDateTimeString(),
-            'updated_at'  =>   null,
+            'name'        => 'Moderator',
+            'email'       => 'moderator@example.com',
+            'user_type'   => 'moderator',
+            'password'    => bcrypt('123456789'),
+            'created_at'  => Carbon::now()->toDateTimeString(),
+            'updated_at'  => null,
         ]);
         //User Customer
         $user = User::create([
-            'name'        =>   'Customer',
-            'email'       =>   'customer@example.com',
-            'user_type'   =>   'customer',
-            'password'    =>   bcrypt('123456789'),
-            'created_at'  =>   Carbon::now()->toDateTimeString(),
-            'updated_at'  =>   null,
+            'name'        => 'Customer',
+            'email'       => 'customer@example.com',
+            'user_type'   => 'customer',
+            'password'    => bcrypt('123456789'),
+            'created_at'  => Carbon::now()->toDateTimeString(),
+            'updated_at'  => null,
         ]);
     }
 }

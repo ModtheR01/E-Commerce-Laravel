@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\SubCategories;
+use App\Models\subCategory;
 use Carbon\Carbon;
 
 class SubcategorySeeder extends Seeder

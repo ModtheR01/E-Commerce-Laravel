@@ -23,13 +23,13 @@ class Category extends Model
         return $this->belongsTo(User::class, 'update_user_id');
     }
 
-    public function subcategory(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subCategories(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(SubCategories::class);
+        return $this->hasMany(SubCategory::class);
     }
 
-    public function product(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Products::class);
+        return $this->hasMany(Product::class);
     }
 }
